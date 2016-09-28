@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
             }
         });
 
-    }
+        }
 
     private void doClick() {
         tvHasil.setText("Jenis Kamar" + spJenis.getSelectedItem().toString());
@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
         else hasil += "Fasilitas yang terpilih : " + nFas;
 
         tvHasil.setText(hasil);
-    }
+        }
 
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -85,7 +85,5 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
             tvHasil.setText("Status anda : " + hasil);
         }
     }
-
-
-}
+    }
 
