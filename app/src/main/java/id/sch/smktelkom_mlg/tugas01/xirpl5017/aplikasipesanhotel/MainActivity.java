@@ -5,16 +5,20 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity implements CompoundButton.OnCheckedChangeListener {
     Spinner spJenis;
+    EditText etNama;
     CheckBox cbMK, cbRS, cbHK;
     TextView tvHasil;
     int nFas;
     RadioButton rb1, rb2, rb3, rb4;
+    RadioGroup RGr;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,9 +27,11 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
 
         spJenis = (Spinner) findViewById(R.id.spinnerJenis);
         tvHasil = (TextView) findViewById(R.id.textViewHasil);
+        etNama = (EditText) findViewById(R.id.editTextNama);
         cbMK = (CheckBox) findViewById(R.id.checkBoxMK);
         cbRS = (CheckBox) findViewById(R.id.checkBoxRS);
         cbHK = (CheckBox) findViewById(R.id.checkBoxHK);
+        RGr = (RadioGroup) findViewById(R.id.RG);
 
         tvHasil = (TextView) findViewById(R.id.textViewHasil);
 
@@ -48,18 +54,46 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
         }
 
     private void doClick() {
-        tvHasil.setText("Jenis Kamar" + spJenis.getSelectedItem().toString());
+        int hargaTotal, hargaKamar, lamaInap;
+        hargaKamar = hargaTotal = lamaInap = 0;
+
+        StringBuilder muncul = new StringBuilder();
+        muncul.append("Nama Lo : " + etNama.getText().toString() + "\n");
+        muncul.append("Jenis : " + spJenis.getSelectedItem().toString() + "\n");
+
+        if (RGr.getCheckedRadioButtonId() != -1) {
+            RadioButton rb = (RadioButton) findViewById(RGr.getCheckedRadioButtonId());
+            lamaInap = Integer.parseInt(rb.getText().toString());
+        }
+        muncul.append("Lamaaa : " + lamaInap + "\n");
+
 
         String hasil = "Fasilitas yang dipilih adalah:\n";
         int startlen = hasil.length();
-        if (cbMK.isChecked()) hasil += cbMK.getText() + "\n";
-        if (cbRS.isChecked()) hasil += cbRS.getText() + "\n";
-        if (cbHK.isChecked()) hasil += cbHK.getText() + "\n";
+        if (cbMK.isChecked()) {
+            hasil += cbMK.getText() + "\n";
+            hargaTotal += 200000;
+        }
+        if (cbRS.isChecked()) {
+            hasil += cbRS.getText() + "\n";
+            hargaTotal += 100000;
+        }
+        if (cbHK.isChecked()) {
+            hasil += cbHK.getText() + "\n";
+            hargaTotal += 50000;
+        }
 
         if (hasil.length() == startlen) hasil += "Tidak ada pada Pilihan";
         else hasil += "Fasilitas yang terpilih : " + nFas;
 
-        tvHasil.setText(hasil);
+        if (spJenis.getSelectedItem().toString() == "Diamond") hargaKamar = 1000000;
+        else if (spJenis.getSelectedItem().toString() == "Gold") hargaKamar = 700000;
+        else if (spJenis.getSelectedItem().toString() == "Silver") hargaKamar = 500000;
+
+        hargaTotal += hargaKamar * lamaInap;
+
+
+        tvHasil.setText(muncul + hasil + "TOTAL === " + hargaTotal);
         }
 
     @Override
@@ -77,12 +111,6 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
             hasil = rb3.getText().toString();
         } else if (rb4.isChecked()) {
             hasil = rb4.getText().toString();
-        }
-
-        if (hasil == null) {
-            tvHasil.setText("belum memilih status");
-        } else {
-            tvHasil.setText("Status anda : " + hasil);
         }
     }
     }
