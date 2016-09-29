@@ -58,17 +58,18 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
         hargaKamar = hargaTotal = lamaInap = 0;
 
         StringBuilder muncul = new StringBuilder();
-        muncul.append("Nama Lo : " + etNama.getText().toString() + "\n");
-        muncul.append("Jenis : " + spJenis.getSelectedItem().toString() + "\n");
+        muncul.append("Nama : " + etNama.getText().toString() + "\n");
+        muncul.append("Jenis Kamar : " + spJenis.getSelectedItem().toString() + "\n");
 
         if (RGr.getCheckedRadioButtonId() != -1) {
             RadioButton rb = (RadioButton) findViewById(RGr.getCheckedRadioButtonId());
             lamaInap = Integer.parseInt(rb.getText().toString());
         }
-        muncul.append("Lamaaa : " + lamaInap + "\n");
+        muncul.append("Lama : " + lamaInap + "\n");
 
 
         String hasil = "Fasilitas yang dipilih adalah:\n";
+
         int startlen = hasil.length();
         if (cbMK.isChecked()) {
             hasil += cbMK.getText() + "\n";
@@ -86,14 +87,20 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
         if (hasil.length() == startlen) hasil += "Tidak ada pada Pilihan";
         else hasil += "Fasilitas yang terpilih : " + nFas;
 
-        if (spJenis.getSelectedItem().toString() == "Diamond") hargaKamar = 1000000;
-        else if (spJenis.getSelectedItem().toString() == "Gold") hargaKamar = 700000;
-        else if (spJenis.getSelectedItem().toString() == "Silver") hargaKamar = 500000;
+        if (spJenis.getSelectedItem().toString().equals("Diamond")) {
+            hargaKamar = 1000000;
+        } else if (spJenis.getSelectedItem().toString().equals("Gold")) {
+            hargaKamar = 700000;
+        } else if (spJenis.getSelectedItem().toString().equals("Silver")) {
+            hargaKamar = 500000;
+        } else {
+            muncul.append("LOLOLO!!! \n");
+        }
 
         hargaTotal += hargaKamar * lamaInap;
 
 
-        tvHasil.setText(muncul + hasil + "TOTAL === " + hargaTotal);
+        tvHasil.setText(muncul + hasil + "TOTAL " + hargaTotal);
         }
 
     @Override
