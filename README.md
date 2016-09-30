@@ -1,4 +1,4 @@
-# HelloGit
+# APLIKASI PESAN HOTEL
 
 Aplikasi ini adalah aplikasi pesan hotel. 
 Interface yang ditampilkan adalah form nama penyewa (edit text), jenis kamar (spinner), fasilitas ekstra (checkbox), dan lama menginap(radio button). 
